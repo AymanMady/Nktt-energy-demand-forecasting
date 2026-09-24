@@ -42,6 +42,8 @@ class Settings(BaseSettings):
         description="Full SQLAlchemy URL. When set, it overrides the POSTGRES_* variables.",
     )
     raw_schema: str = "raw"
+    # dbt builds staging/intermediate/marts in this schema (see dbt/profiles.yml).
+    analytics_schema: str = "analytics"
 
     # --- Paths ---
     data_dir: Path = PROJECT_ROOT / "data"
