@@ -1,0 +1,50 @@
+[project]
+name = "nouakchott-energy-forecasting"
+version = "0.1.0"
+description = "End-to-end electricity demand forecasting platform prototype for Nouakchott (synthetic/public data)."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [{ name = "Bechir Mady" }]
+dependencies = [
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "sqlalchemy>=2.0",
+    "psycopg[binary]>=3.1",
+    "pydantic>=2.6",
+    "pydantic-settings>=2.2",
+    "pyyaml>=6.0",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.5",
+]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
+markers = [
+    "integration: tests that need a running PostgreSQL instance (skipped if unreachable)",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["notebooks", "frontend", "dbt"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "N"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
