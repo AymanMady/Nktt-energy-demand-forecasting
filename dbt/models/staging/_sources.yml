@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Raw layer loaded by `python -m src.ingestion.load_data` (validated, canonical schema).
+    schema: raw
+    tables:
+      - name: energy_demand
+        description: Hourly demand + weather, one row per (source, timestamp).
+        columns:
+          - name: timestamp
+            data_tests: [not_null]
+          - name: source
+            data_tests: [not_null]
+      - name: ingestion_runs
+        description: Audit log of ingestion runs.

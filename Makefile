@@ -2,14 +2,14 @@ PYTHON ?= .venv/bin/python
 UV ?= uv
 
 .DEFAULT_GOAL := help
-.PHONY: help setup env db-up db-down db-init data data-weather weather load pipeline test test-unit lint format clean
+.PHONY: help setup env db-up db-down db-init data data-weather weather load pipeline test test-unit lint format clean dbt dbt-docs
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
 
 setup: ## Create .venv (Python 3.12) and install the project + dev tools
 	$(UV) venv --python 3.12 .venv
-	$(UV) pip install --python $(PYTHON) -e ".[dev]"
+	$(UV) pip install --python $(PYTHON) -e ".[api,mlops,notebook,dbt,dev]"
 
 env: ## Create .env from .env.example if missing
 	@test -f .env || (cp .env.example .env && echo "Created .env - edit POSTGRES_PASSWORD")
@@ -54,3 +54,9 @@ format: ## Auto-format and fix lint issues
 clean: ## Remove caches (keeps data and the database)
 	find . -type d -name __pycache__ -prune -exec rm -rf {} +
 	rm -rf .pytest_cache .ruff_cache
+
+dbt: ## Build dbt seeds, models and tests (reads connection settings from .env)
+	set -a && . ./.env && set +a && cd dbt && ../.venv/bin/dbt build --profiles-dir . --target-path target
+
+dbt-docs: ## Generate dbt documentation
+	set -a && . ./.env && set +a && cd dbt && ../.venv/bin/dbt docs generate --profiles-dir .

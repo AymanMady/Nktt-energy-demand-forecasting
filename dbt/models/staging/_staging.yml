@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_energy_demand
+    description: Typed hourly observations for the selected source (var `energy_source`).
+    columns:
+      - name: timestamp
+        description: Hour start, UTC (= Nouakchott local time).
+        data_tests: [not_null, unique]
+      - name: demand_mw
+        description: Hourly average load (MW). Synthetic in the prototype.
+      - name: data_source
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ["{{ var('energy_source') }}"]

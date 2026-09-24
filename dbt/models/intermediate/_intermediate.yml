@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: int_energy_features
+    description: Hourly spine with calendar features, local-calendar flags and cooling degrees.
+    columns:
+      - name: timestamp
+        data_tests: [not_null, unique]
+      - name: hour
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]
+      - name: day_of_week
+        description: Monday = 0 ... Sunday = 6.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1, 2, 3, 4, 5, 6]
+      - name: month
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      - name: quarter
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4]
+      - name: is_weekend
+        data_tests: [not_null]
+      - name: is_holiday
+        data_tests: [not_null]

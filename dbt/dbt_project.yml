@@ -1,0 +1,38 @@
+name: nouakchott_energy
+version: "0.1.0"
+config-version: 2
+profile: nouakchott_energy
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+target-path: target
+clean-targets: [target, dbt_packages, logs]
+
+vars:
+  # Which raw source to model (raw.energy_demand.source). Switch to an operator source later.
+  energy_source: synthetic
+  # Temperature above which cooling load is assumed to start (degC). Assumption, not a measured value.
+  comfort_temp_c: 24
+
+models:
+  nouakchott_energy:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table
+
+seeds:
+  nouakchott_energy:
+    local_calendar:
+      +column_types:
+        date: date
+        is_holiday: boolean
+        is_ramadan: boolean
+        is_eid: boolean
+        is_school_holiday: boolean
+        event_name: text
+        verified: boolean

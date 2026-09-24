@@ -1,0 +1,14 @@
+version: 2
+
+seeds:
+  - name: local_calendar
+    description: >
+      Mauritanian calendar flags by date. Fixed-date public holidays are marked verified=true.
+      Islamic-calendar dates (Ramadan, Eid, Islamic New Year, Mawlid) are APPROXIMATE astronomical
+      dates (verified=false, +/- 1 day depending on moon sighting) and must be checked against the
+      official calendar before being used on real data. School holidays are not filled in yet.
+    columns:
+      - name: date
+        data_tests: [not_null, unique]
+      - name: verified
+        data_tests: [not_null]

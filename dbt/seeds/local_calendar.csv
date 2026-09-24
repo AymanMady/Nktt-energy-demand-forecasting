@@ -1,0 +1,168 @@
+date,is_holiday,is_ramadan,is_eid,is_school_holiday,event_name,verified
+2023-01-01,True,False,False,False,New Year,True
+2023-05-01,True,False,False,False,Labour Day,True
+2023-05-25,True,False,False,False,Africa Day,True
+2023-06-28,True,False,True,False,Eid al-Adha,False
+2023-06-29,True,False,True,False,Eid al-Adha,False
+2023-07-19,True,False,False,False,Islamic New Year,False
+2023-09-27,True,False,False,False,Mawlid,False
+2023-11-28,True,False,False,False,Independence Day,True
+2024-01-01,True,False,False,False,New Year,True
+2024-03-11,False,True,False,False,Ramadan,False
+2024-03-12,False,True,False,False,Ramadan,False
+2024-03-13,False,True,False,False,Ramadan,False
+2024-03-14,False,True,False,False,Ramadan,False
+2024-03-15,False,True,False,False,Ramadan,False
+2024-03-16,False,True,False,False,Ramadan,False
+2024-03-17,False,True,False,False,Ramadan,False
+2024-03-18,False,True,False,False,Ramadan,False
+2024-03-19,False,True,False,False,Ramadan,False
+2024-03-20,False,True,False,False,Ramadan,False
+2024-03-21,False,True,False,False,Ramadan,False
+2024-03-22,False,True,False,False,Ramadan,False
+2024-03-23,False,True,False,False,Ramadan,False
+2024-03-24,False,True,False,False,Ramadan,False
+2024-03-25,False,True,False,False,Ramadan,False
+2024-03-26,False,True,False,False,Ramadan,False
+2024-03-27,False,True,False,False,Ramadan,False
+2024-03-28,False,True,False,False,Ramadan,False
+2024-03-29,False,True,False,False,Ramadan,False
+2024-03-30,False,True,False,False,Ramadan,False
+2024-03-31,False,True,False,False,Ramadan,False
+2024-04-01,False,True,False,False,Ramadan,False
+2024-04-02,False,True,False,False,Ramadan,False
+2024-04-03,False,True,False,False,Ramadan,False
+2024-04-04,False,True,False,False,Ramadan,False
+2024-04-05,False,True,False,False,Ramadan,False
+2024-04-06,False,True,False,False,Ramadan,False
+2024-04-07,False,True,False,False,Ramadan,False
+2024-04-08,False,True,False,False,Ramadan,False
+2024-04-09,False,True,False,False,Ramadan,False
+2024-04-10,True,False,True,False,Eid al-Fitr,False
+2024-04-11,True,False,True,False,Eid al-Fitr,False
+2024-05-01,True,False,False,False,Labour Day,True
+2024-05-25,True,False,False,False,Africa Day,True
+2024-06-16,True,False,True,False,Eid al-Adha,False
+2024-06-17,True,False,True,False,Eid al-Adha,False
+2024-07-07,True,False,False,False,Islamic New Year,False
+2024-09-15,True,False,False,False,Mawlid,False
+2024-11-28,True,False,False,False,Independence Day,True
+2025-01-01,True,False,False,False,New Year,True
+2025-03-01,False,True,False,False,Ramadan,False
+2025-03-02,False,True,False,False,Ramadan,False
+2025-03-03,False,True,False,False,Ramadan,False
+2025-03-04,False,True,False,False,Ramadan,False
+2025-03-05,False,True,False,False,Ramadan,False
+2025-03-06,False,True,False,False,Ramadan,False
+2025-03-07,False,True,False,False,Ramadan,False
+2025-03-08,False,True,False,False,Ramadan,False
+2025-03-09,False,True,False,False,Ramadan,False
+2025-03-10,False,True,False,False,Ramadan,False
+2025-03-11,False,True,False,False,Ramadan,False
+2025-03-12,False,True,False,False,Ramadan,False
+2025-03-13,False,True,False,False,Ramadan,False
+2025-03-14,False,True,False,False,Ramadan,False
+2025-03-15,False,True,False,False,Ramadan,False
+2025-03-16,False,True,False,False,Ramadan,False
+2025-03-17,False,True,False,False,Ramadan,False
+2025-03-18,False,True,False,False,Ramadan,False
+2025-03-19,False,True,False,False,Ramadan,False
+2025-03-20,False,True,False,False,Ramadan,False
+2025-03-21,False,True,False,False,Ramadan,False
+2025-03-22,False,True,False,False,Ramadan,False
+2025-03-23,False,True,False,False,Ramadan,False
+2025-03-24,False,True,False,False,Ramadan,False
+2025-03-25,False,True,False,False,Ramadan,False
+2025-03-26,False,True,False,False,Ramadan,False
+2025-03-27,False,True,False,False,Ramadan,False
+2025-03-28,False,True,False,False,Ramadan,False
+2025-03-29,False,True,False,False,Ramadan,False
+2025-03-30,True,False,True,False,Eid al-Fitr,False
+2025-03-31,True,False,True,False,Eid al-Fitr,False
+2025-05-01,True,False,False,False,Labour Day,True
+2025-05-25,True,False,False,False,Africa Day,True
+2025-06-06,True,False,True,False,Eid al-Adha,False
+2025-06-07,True,False,True,False,Eid al-Adha,False
+2025-06-26,True,False,False,False,Islamic New Year,False
+2025-09-04,True,False,False,False,Mawlid,False
+2025-11-28,True,False,False,False,Independence Day,True
+2026-01-01,True,False,False,False,New Year,True
+2026-02-18,False,True,False,False,Ramadan,False
+2026-02-19,False,True,False,False,Ramadan,False
+2026-02-20,False,True,False,False,Ramadan,False
+2026-02-21,False,True,False,False,Ramadan,False
+2026-02-22,False,True,False,False,Ramadan,False
+2026-02-23,False,True,False,False,Ramadan,False
+2026-02-24,False,True,False,False,Ramadan,False
+2026-02-25,False,True,False,False,Ramadan,False
+2026-02-26,False,True,False,False,Ramadan,False
+2026-02-27,False,True,False,False,Ramadan,False
+2026-02-28,False,True,False,False,Ramadan,False
+2026-03-01,False,True,False,False,Ramadan,False
+2026-03-02,False,True,False,False,Ramadan,False
+2026-03-03,False,True,False,False,Ramadan,False
+2026-03-04,False,True,False,False,Ramadan,False
+2026-03-05,False,True,False,False,Ramadan,False
+2026-03-06,False,True,False,False,Ramadan,False
+2026-03-07,False,True,False,False,Ramadan,False
+2026-03-08,False,True,False,False,Ramadan,False
+2026-03-09,False,True,False,False,Ramadan,False
+2026-03-10,False,True,False,False,Ramadan,False
+2026-03-11,False,True,False,False,Ramadan,False
+2026-03-12,False,True,False,False,Ramadan,False
+2026-03-13,False,True,False,False,Ramadan,False
+2026-03-14,False,True,False,False,Ramadan,False
+2026-03-15,False,True,False,False,Ramadan,False
+2026-03-16,False,True,False,False,Ramadan,False
+2026-03-17,False,True,False,False,Ramadan,False
+2026-03-18,False,True,False,False,Ramadan,False
+2026-03-19,False,True,False,False,Ramadan,False
+2026-03-20,True,False,True,False,Eid al-Fitr,False
+2026-03-21,True,False,True,False,Eid al-Fitr,False
+2026-05-01,True,False,False,False,Labour Day,True
+2026-05-25,True,False,False,False,Africa Day,True
+2026-05-27,True,False,True,False,Eid al-Adha,False
+2026-05-28,True,False,True,False,Eid al-Adha,False
+2026-06-16,True,False,False,False,Islamic New Year,False
+2026-08-25,True,False,False,False,Mawlid,False
+2026-11-28,True,False,False,False,Independence Day,True
+2027-01-01,True,False,False,False,New Year,True
+2027-02-08,False,True,False,False,Ramadan,False
+2027-02-09,False,True,False,False,Ramadan,False
+2027-02-10,False,True,False,False,Ramadan,False
+2027-02-11,False,True,False,False,Ramadan,False
+2027-02-12,False,True,False,False,Ramadan,False
+2027-02-13,False,True,False,False,Ramadan,False
+2027-02-14,False,True,False,False,Ramadan,False
+2027-02-15,False,True,False,False,Ramadan,False
+2027-02-16,False,True,False,False,Ramadan,False
+2027-02-17,False,True,False,False,Ramadan,False
+2027-02-18,False,True,False,False,Ramadan,False
+2027-02-19,False,True,False,False,Ramadan,False
+2027-02-20,False,True,False,False,Ramadan,False
+2027-02-21,False,True,False,False,Ramadan,False
+2027-02-22,False,True,False,False,Ramadan,False
+2027-02-23,False,True,False,False,Ramadan,False
+2027-02-24,False,True,False,False,Ramadan,False
+2027-02-25,False,True,False,False,Ramadan,False
+2027-02-26,False,True,False,False,Ramadan,False
+2027-02-27,False,True,False,False,Ramadan,False
+2027-02-28,False,True,False,False,Ramadan,False
+2027-03-01,False,True,False,False,Ramadan,False
+2027-03-02,False,True,False,False,Ramadan,False
+2027-03-03,False,True,False,False,Ramadan,False
+2027-03-04,False,True,False,False,Ramadan,False
+2027-03-05,False,True,False,False,Ramadan,False
+2027-03-06,False,True,False,False,Ramadan,False
+2027-03-07,False,True,False,False,Ramadan,False
+2027-03-08,False,True,False,False,Ramadan,False
+2027-03-09,False,True,False,False,Ramadan,False
+2027-03-10,True,False,True,False,Eid al-Fitr,False
+2027-03-11,True,False,True,False,Eid al-Fitr,False
+2027-05-01,True,False,False,False,Labour Day,True
+2027-05-16,True,False,True,False,Eid al-Adha,False
+2027-05-17,True,False,True,False,Eid al-Adha,False
+2027-05-25,True,False,False,False,Africa Day,True
+2027-06-06,True,False,False,False,Islamic New Year,False
+2027-08-14,True,False,False,False,Mawlid,False
+2027-11-28,True,False,False,False,Independence Day,True
