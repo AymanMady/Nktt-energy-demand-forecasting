@@ -1,0 +1,17 @@
+# TEMPLATE for a future electricity-operator export (e.g. if SOMELEC grants data access).
+#
+# The column names below are PLACEHOLDERS: the real export format is unknown and
+# must be agreed with the data owner. Copy this file, replace the left-hand
+# names with the real column names, adjust timezone/units, then run:
+#   python -m src.ingestion.load_data --source <your_copy_name> --path <file.csv>
+name: operator_template
+description: Placeholder mapping for a real operator load export (format to be defined)
+is_synthetic: false
+path: null
+timestamp_column: <DATETIME_COLUMN>
+timezone: UTC            # Nouakchott is UTC+0; adjust if the export uses another reference
+timestamp_format: null   # e.g. "%d/%m/%Y %H:%M" if not ISO-8601
+demand_scale: 1.0        # 0.001 if the export is in kW
+columns:
+  <LOAD_COLUMN>: demand_mw
+  # Weather can come from the operator or be joined from Open-Meteo (src/ingestion/weather_api.py)

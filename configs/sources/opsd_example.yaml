@@ -1,0 +1,20 @@
+# Example PUBLIC dataset: Open Power System Data (OPSD) - hourly European load.
+# Demonstrates that the pipeline accepts real public load data without code changes.
+# It is NOT Mauritanian data; use it only to test the pipeline on real-world load.
+#
+# Download (~125 MB, not fetched automatically):
+#   https://data.open-power-system-data.org/time_series/latest/time_series_60min_singleindex.csv
+# Save as data/external/opsd_time_series_60min.csv, then:
+#   python -m src.ingestion.load_data --source opsd_example
+name: opsd_example
+description: OPSD hourly actual load, one country column (weather not included)
+is_synthetic: false
+license: Open Power System Data - see dataset page (mostly CC-BY 4.0)
+url: https://data.open-power-system-data.org/time_series/
+path: data/external/opsd_time_series_60min.csv
+timestamp_column: utc_timestamp
+timezone: UTC
+demand_scale: 1.0  # already in MW
+columns:
+  # Pick any country column available in the file.
+  PT_load_actual_entsoe_transparency: demand_mw

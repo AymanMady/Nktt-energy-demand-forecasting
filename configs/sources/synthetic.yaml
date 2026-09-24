@@ -1,0 +1,15 @@
+# Synthetic Nouakchott dataset produced by `python -m src.ingestion.generate_data`.
+# SYNTHETIC DATA - for architecture demonstration only. NOT SOMELEC data.
+name: synthetic
+description: Synthetic hourly demand for Nouakchott (generator in src/ingestion/synthetic.py)
+is_synthetic: true
+path: data/raw/synthetic_energy_demand.csv
+timestamp_column: timestamp
+timezone: UTC
+demand_scale: 1.0
+columns:
+  demand_mw: demand_mw
+  temperature_c: temperature_c
+  humidity: humidity
+  wind_speed: wind_speed
+  cloud_cover: cloud_cover
