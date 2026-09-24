@@ -53,6 +53,17 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     random_seed: int = 42
 
+    # --- MLOps / serving ---
+    mlflow_tracking_uri: str = "http://localhost:5000"
+    mlflow_experiment: str = "nouakchott-energy-forecasting"
+    mlflow_registered_model: str = "nkc-energy-forecaster"
+    models_dir: Path = PROJECT_ROOT / "models"
+    reports_dir: Path = PROJECT_ROOT / "reports"
+
+    @property
+    def production_model_dir(self) -> Path:
+        return self.models_dir / "production"
+
     @property
     def raw_data_dir(self) -> Path:
         return self.data_dir / "raw"
