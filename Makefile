@@ -2,7 +2,7 @@ PYTHON ?= .venv/bin/python
 UV ?= uv
 
 .DEFAULT_GOAL := help
-.PHONY: help setup env db-up db-down db-init data data-weather weather load pipeline test test-unit lint format clean dbt dbt-docs
+.PHONY: help setup env db-up db-down db-init data data-weather weather load pipeline test test-unit lint format clean dbt dbt-docs train evaluate api frontend notebook up pipeline-docker all
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
@@ -60,3 +60,26 @@ dbt: ## Build dbt seeds, models and tests (reads connection settings from .env)
 
 dbt-docs: ## Generate dbt documentation
 	set -a && . ./.env && set +a && cd dbt && ../.venv/bin/dbt docs generate --profiles-dir .
+
+train: ## Backtest all models, select, calibrate intervals, save + register the production model
+	$(PYTHON) -m src.training.train
+
+evaluate: ## Render reports/results.md from the last training and refresh the README results
+	$(PYTHON) -m src.evaluation.report --update-readme
+
+api: ## Run the FastAPI server locally (http://localhost:8000/docs)
+	$(PYTHON) -m uvicorn src.api.main:app --reload --port 8000
+
+frontend: ## Run the Next.js dashboard in dev mode (http://localhost:3001)
+	cd frontend && npm install && API_URL=http://localhost:8000 npm run dev
+
+notebook: ## Re-execute the EDA notebook in place
+	cd notebooks && ../.venv/bin/jupyter nbconvert --to notebook --execute --inplace 01_eda.ipynb
+
+up: env ## Build and start the full stack (postgres, mlflow, api, frontend)
+	docker compose up --build -d
+
+pipeline-docker: ## Run generate -> load -> dbt -> train inside docker
+	docker compose --profile pipeline run --rm pipeline
+
+all: db-up data load dbt train evaluate ## Full local pipeline from scratch

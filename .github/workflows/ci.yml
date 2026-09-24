@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: energy
+          POSTGRES_PASSWORD: ci_only_password
+          POSTGRES_DB: energy
+        ports: ["5440:5432"]
+        options: >-
+          --health-cmd "pg_isready -U energy" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      POSTGRES_PASSWORD: ci_only_password
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: "5440"
+      MODEL_N_JOBS: "2"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Install
+        run: |
+          uv venv --python 3.12 .venv
+          uv pip install --python .venv/bin/python -e ".[api,dbt,dev]"
+      - name: Lint
+        run: |
+          .venv/bin/ruff check src tests
+          .venv/bin/ruff format --check src tests
+      - name: Ingest synthetic data + dbt build (enables integration tests)
+        run: |
+          .venv/bin/python -m src.ingestion.generate_data
+          .venv/bin/python -m src.ingestion.load_data
+          cd dbt && ../.venv/bin/dbt build --profiles-dir .
+      - name: Tests
+        run: .venv/bin/pytest
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run build   # also generates next-env.d.ts
+      - run: npm run typecheck

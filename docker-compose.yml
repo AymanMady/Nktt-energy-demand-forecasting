@@ -1,5 +1,17 @@
 name: nouakchott-energy
 
+# Usage
+#   docker compose up --build -d                    # postgres, mlflow, api, frontend
+#   docker compose --profile pipeline run --rm pipeline   # generate -> load -> dbt -> train (in docker)
+# Host ports are configurable in .env (defaults avoid common local conflicts).
+
+x-db-env: &db-env
+  POSTGRES_USER: ${POSTGRES_USER:-energy}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env (see .env.example)}
+  POSTGRES_DB: ${POSTGRES_DB:-energy}
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: "5432"
+
 services:
   postgres:
     image: postgres:16-alpine
@@ -19,5 +31,81 @@ services:
       timeout: 5s
       retries: 10
 
+  mlflow:
+    build:
+      context: docker/mlflow
+    image: nouakchott-energy/mlflow:3.16.1
+    container_name: nkc-energy-mlflow
+    restart: unless-stopped
+    environment:
+      MLFLOW_ALLOWED_HOSTS: "localhost,localhost:*,127.0.0.1,127.0.0.1:*,mlflow,mlflow:*"
+      MLFLOW_DISABLE_AGENT_HINT: "1"
+    ports:
+      - "${MLFLOW_PORT:-5000}:5000"
+    volumes:
+      - mlflow_data:/mlflow
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/python/Dockerfile
+      args:
+        EXTRAS: api
+    image: nouakchott-energy/api:latest
+    container_name: nkc-energy-api
+    restart: unless-stopped
+    environment:
+      <<: *db-env
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      API_CORS_ORIGINS: ${API_CORS_ORIGINS:-*}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      # Trained model and reports are produced by `python -m src.training.train`
+      # (host) or by the pipeline service; the API hot-reloads them.
+      - ./models:/app/models:ro
+      - ./reports:/app/reports:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: frontend
+    image: nouakchott-energy/frontend:latest
+    container_name: nkc-energy-frontend
+    restart: unless-stopped
+    environment:
+      API_URL: http://api:8000
+    ports:
+      - "${FRONTEND_PORT:-3001}:3000"
+    depends_on:
+      - api
+
+  pipeline:
+    profiles: ["pipeline"]
+    build:
+      context: .
+      dockerfile: docker/python/Dockerfile
+      args:
+        EXTRAS: api,mlops,dbt
+    image: nouakchott-energy/pipeline:latest
+    environment:
+      <<: *db-env
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+      MODEL_N_JOBS: ${MODEL_N_JOBS:-4}
+    entrypoint: ["sh", "/app/docker/pipeline.sh"]
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./reports:/app/reports
+      - ./docker/pipeline.sh:/app/docker/pipeline.sh:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mlflow:
+        condition: service_started
+
 volumes:
   postgres_data:
+  mlflow_data:
