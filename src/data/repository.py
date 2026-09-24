@@ -85,3 +85,33 @@ def load_training_data(source: str = "synthetic", prefer: str = "mart") -> pd.Da
     df = read_source_csv(load_source_mapping(source))
     logger.info("Loaded %d rows from CSV", len(df))
     return df.sort_values(TIMESTAMP_COL).reset_index(drop=True)
+
+
+def load_energy_range(
+    source: str = "synthetic",
+    start: pd.Timestamp | None = None,
+    end: pd.Timestamp | None = None,
+    last_days: int | None = None,
+    engine: Engine | None = None,
+) -> pd.DataFrame:
+    """Canonical rows for a time range, or the last ``last_days`` days of data."""
+    engine = engine or get_engine()
+    schema = get_settings().raw_schema
+    cols = ", ".join(f'"{c}"' for c in CANONICAL_COLUMNS)
+    where, params = ["source = :source"], {"source": source}
+    if last_days is not None:
+        where.append(
+            f"timestamp > (SELECT max(timestamp) FROM {schema}.energy_demand WHERE source = :source)"
+            " - make_interval(days => :days)"
+        )
+        params["days"] = int(last_days)
+    if start is not None:
+        where.append("timestamp >= :start")
+        params["start"] = start
+    if end is not None:
+        where.append("timestamp <= :end")
+        params["end"] = end
+    query = (
+        f"SELECT {cols} FROM {schema}.energy_demand WHERE {' AND '.join(where)} ORDER BY timestamp"
+    )
+    return _read_sql(query, engine, params)
